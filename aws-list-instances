@@ -31,7 +31,6 @@ if args.noheader == False:
 for i in instances:
     inst_id = i.id
     dns    = i.private_dns_name
-    tags   = i.tags['Name']
     state  = i.state
     if key != '':
 	# Use a try/except as the key might not exist in the tag set and it will error if for example "Name" isn't a key
