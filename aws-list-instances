@@ -1,0 +1,45 @@
+#!/usr/bin/python
+#####
+# aws-list-instances lists all instances in a region and allow search by tags
+#####
+import boto.ec2
+import json
+import argparse
+#Hmmm pretty colors
+from fabric.colors import green as _green, yellow as _yellow
+
+parser = argparse.ArgumentParser(description='List AWS Instances')
+parser.add_argument('-r','--region',help='Region (ex.us-west-2)', required=True)
+parser.add_argument('-t','--tags',help='Search Tags (ex "environment: prod")', required=False)
+parser.add_argument('-n','--noheader', action='store_true', help='Exclude header row', required=False)
+
+args = parser.parse_args()
+region = args.region
+tags   = args.tags
+if len(str(tags)) > 4:
+	key = tags.split(': ')
+else:
+ 	key = ''	
+
+# Setup connection to EC2 Region
+conn = boto.ec2.connect_to_region(region)
+reservations = conn.get_all_instances()
+instances = [i for r in reservations for i in r.instances]
+# Print Header
+if args.noheader == False:
+	print ("ID\t\tDNS\t\t\t\t\t\tTags\t\t\tState")
+for i in instances:
+    inst_id = i.id
+    dns    = i.private_dns_name
+    tags   = i.tags['Name']
+    state  = i.state
+    if key != '':
+	# Use a try/except as the key might not exist in the tag set and it will error if for example "Name" isn't a key
+	try:
+	        if i.tags[key[0]] == key[1]:
+		    print(_green(inst_id + "\t" + dns + "\t" + str(i.tags) + "\t" + state))
+	except:
+		#Key name doesn't exist so exit
+		break;
+    else:
+	print(_green(inst_id + "\t" + dns + "\t" + str(i.tags) + "\t" + state))

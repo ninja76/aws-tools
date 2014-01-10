@@ -1,0 +1,25 @@
+#!/usr/bin/python
+import boto.ec2
+import json
+import argparse
+#Hmmm pretty colors
+from fabric.colors import green as _green, yellow as _yellow
+
+parser = argparse.ArgumentParser(description='Add Tags to an instance')
+parser.add_argument('-r','--region',help='Region (ex.us-west-2)', required=True)
+parser.add_argument('-i','--instance',help='Instance ID to add tags to (ex i-XXXX)', required=True)
+parser.add_argument('-t','--tag',help='Tag Key Value Pair (ex. "environment: prod")', required=True)
+
+# Assign args
+args = parser.parse_args()
+region = args.region
+inst   = args.instance
+tag    = args.tag
+
+# Split the key pair from the cli into two parts (tagKey and tagValue) So they can be passed to the create_tags call
+value = tag.split(': ')
+tagKey   = value[0]
+tagValue = value[1]
+# Setup connection to EC2 Region
+#conn = boto.ec2.connect_to_region(region)
+#conn.create_tags([inst], {tagKey: tagValue})
