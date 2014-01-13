@@ -2,9 +2,9 @@
 import boto.ec2
 
 region = 'us-west-2'
-AMI_ID = 'ami-6aad335a'
+AMI_ID = 'ami-b8a63b88'
 INSTANCE_TYPE = 't1.micro'
-EC2_KEY_HANDLE = 'Default'
+EC2_KEY_HANDLE = 'prod-sf-01'
 SECGROUP_HANDLE = 'default'
 
 conn = boto.ec2.connect_to_region(region)
