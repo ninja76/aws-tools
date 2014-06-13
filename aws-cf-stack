@@ -6,10 +6,10 @@ import argparse
 with open ("basic.template", "r") as myfile:
     template=myfile.read()
 
-cfn = boto.cloudformation.connect_to_region('us-west-2')
+cfn = boto.cloudformation.connect_to_region('us-east-1')
 stack_name = "testStack55"
-t_url = "https://s3.amazonaws.com/cloudformation-samples-us-east-1/LAMP_Simple.template"
-cfn.create_stack(stack_name, template_body=template,capabilities=['CAPABILITY_IAM']) 
+t_url = "https://beh_cf.s3.amazonaws.com/gluster"
+cfn.create_stack(stack_name, template_body=template) 
 
 print "Listing Stacks"
 stacks = cfn.list_stacks()

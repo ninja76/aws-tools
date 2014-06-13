@@ -1,0 +1,10 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "Just a blank template to start from...Nothing less, nothing more...",
+  "Parameters" : {
+  },
+  "Resources" : {
+  },
+  "Outputs" : {
+  }
+}

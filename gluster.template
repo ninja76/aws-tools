@@ -5,7 +5,7 @@
         "InstanceTypeInput": {
             "Description": "EC2 instance type",
 	    "Type" : "String",
-	    "Default" : "m1.small"
+	    "Default" : "t1.micro"
         }
     },
     "Resources": {
@@ -25,7 +25,14 @@
         	        "#!/bin/bash",
 	                "add-apt-repository -y ppa:semiosis/ubuntu-glusterfs-3.4",
         	        "apt-get update -y",                
-                	"apt-get -y install glusterfs-server"
+                	"apt-get -y install glusterfs-server",
+                	"apt-get -y install xfsprogs",
+                	"(echo n;echo p;echo 1;echo;echo;echo w) | fdisk /dev/xvdb\n",
+                	"mkfs.xfs /dev/xvdb1",
+                	"mkdir -p /export/xvdb1",
+                	"mount /dev/xvdb1 /export/xvdb1",
+                	"mkdir -p /export/xvdb1/brick",
+                	"echo '/dev/xvdb1 /export/xvdb1 xfs defaults 0 0'  > /etc/fstab"
 	              ]
         	    ]
 	          }
@@ -43,7 +50,7 @@
 	    "Properties" : {
 		"AvailabilityZones": ["us-east-1a"],
 		"LaunchConfigurationName": { "Ref" : "myGlusterLC" },
-		"MinSize":"1",
+		"MinSize":"2",
 		"MaxSize":"2"
 	    }
 	}

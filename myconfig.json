@@ -1,0 +1,16 @@
+{
+        "groups" : [
+        {
+                "groupName": "webprod",
+                "username" : "ubuntu",
+                "sshKey"   : "/root/.ssh/prod.pem",
+                "elbName"  : "MY-WEB0-webELB-1AUN9T1X8KUA2"
+        },
+        {
+                "groupName": "serviceprod",
+                "username" : "ubuntu",
+                "sshKey"   : "/root/.ssh/prod.pem",
+                "elbName"  : "My01-SE-serviceE-W4OHMYFBPX9O"
+        }
+        ]
+}

@@ -30,7 +30,8 @@ if args.noheader == False:
 	print ("ID\t\tDNS\t\t\t\t\t\tTags\t\t\tState")
 for i in instances:
     inst_id = i.id
-    dns    = i.public_dns_name
+    dns    = i.private_dns_name
+    pub    = i.public_dns_name
     state  = i.state
     if key != '':
 	# Use a try/except as the key might not exist in the tag set and it will error if for example "Name" isn't a key
@@ -41,4 +42,4 @@ for i in instances:
 		#Key name doesn't exist so exit
 		break;
     else:
-	print(_green(inst_id + "\t" + dns + "\t" + str(i.tags) + "\t" + state))
+	print(_green(inst_id + "\t" + dns + "\t" + pub + "\t" + str(i.tags) + "\t" + state))
